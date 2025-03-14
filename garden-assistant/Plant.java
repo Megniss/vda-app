@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.Date;
+import java.util.Calendar;
 
 public class Plant {
     private String name;
@@ -8,21 +9,11 @@ public class Plant {
     public Plant(String name, int wateringInterval) {
         this.name = name;
         this.wateringInterval = wateringInterval;
-        this.nextWateringDate = calculateNextWateringDate();
-    }
-
-    private Date calculateNextWateringDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, wateringInterval);
-        return calendar.getTime();
+        this.updateWateringDate();
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getWateringInterval() {
-        return wateringInterval;
     }
 
     public Date getNextWateringDate() {
@@ -30,6 +21,8 @@ public class Plant {
     }
 
     public void updateWateringDate() {
-        this.nextWateringDate = calculateNextWateringDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, wateringInterval);
+        this.nextWateringDate = calendar.getTime();
     }
 }
