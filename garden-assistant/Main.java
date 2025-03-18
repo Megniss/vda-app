@@ -1,10 +1,17 @@
 import java.util.Scanner;
-
 public class Main {
+    
+private static final String GREEN = "\u001B[92m";
+    private static final String BROWN = "\u001B[33m";
+    private static final String RESET = "\u001B[0m";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        PlantManager manager = new PlantManager();
-
+        
+        System.out.print("Ievadi savu Lietotāja ID (max 10 burti): ");
+        String userId = scanner.nextLine().trim();
+        
+        PlantManager manager = new PlantManager(userId);
+        
         while (true) {
             System.out.println("\n1. Pievienot augu");
             System.out.println("2. Pārbaudīt laistīšanas atgādinājumus");
@@ -30,7 +37,8 @@ public class Main {
                     manager.generateCareTip();
                     break;
                 case 4:
-                    System.out.println("Programma tiek izslēgta...");
+                    System.out.println("Saglabāju datus un izeju no programmas...");
+                    manager.savePlants(userId);
                     scanner.close();
                     System.exit(0);
                 default:
@@ -38,4 +46,4 @@ public class Main {
             }
         }
     }
-}
+}    
