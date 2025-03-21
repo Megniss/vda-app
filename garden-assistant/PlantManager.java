@@ -4,7 +4,6 @@ import java.util.*;
 public class PlantManager {
     private List<Plant> plants = new ArrayList<>();
     private String userId;
-    private static final String FILE_EXTENSION = ".plants";
     private static final String GREEN = "\u001B[92m";
     private static final String BROWN = "\u001B[33m";
     private static final String RESET = "\u001B[0m";
@@ -35,10 +34,10 @@ public class PlantManager {
         System.out.println(BROWN + CareTip.getRandomTip() + RESET);
     }
 
-    public void savePlants(String userId) {
+    public void savePlants() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(userId + ".txt"))) {
             for (Plant plant : plants) {
-                writer.write(plant.getName() + ", Augs ir jāaplaista pēc " + plant.getWateringInterval() + " dienām.");
+                writer.write(plant.getName() + "," + plant.getNextWateringDate().getTime() + "," + plant.getWateringInterval());
                 writer.newLine();
             }
             System.out.println(GREEN + "Dati saglabāti!" + RESET);
@@ -46,8 +45,7 @@ public class PlantManager {
             System.out.println(BROWN + "Kļūda saglabājot datus." + RESET);
         }
     }
-    
-    
+
     public void loadPlants() {
         File file = new File(userId + ".txt");
         if (file.exists()) {

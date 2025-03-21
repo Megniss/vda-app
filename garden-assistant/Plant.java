@@ -1,5 +1,5 @@
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Plant {
     private String name;
@@ -9,7 +9,7 @@ public class Plant {
     public Plant(String name, int wateringInterval) {
         this.name = name;
         this.wateringInterval = wateringInterval;
-        this.updateWateringDate();
+        updateWateringDate();
     }
 
     public String getName() {
@@ -29,6 +29,7 @@ public class Plant {
         calendar.add(Calendar.DAY_OF_YEAR, wateringInterval);
         this.nextWateringDate = calendar.getTime();
     }
+
     public void setNextWateringDate(Date date) {
         this.nextWateringDate = date;
     }
