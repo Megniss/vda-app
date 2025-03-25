@@ -19,7 +19,7 @@ public class Main {
             printMenu();
             System.out.print("Izvēlies darbību: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -48,16 +48,17 @@ public class Main {
 
     private static void printHeader() {
         System.out.println(GREEN +
-                "████████╗██╗   ██╗████████╗██╗   ██╗ ██████╗ \n" +
-                "╚══██╔══╝██║   ██║╚══██╔══╝██║   ██║██╔═══██╗\n" +
-                "   ██║   ██║   ██║   ██║   ██║   ██║██║   ██║\n" +
-                "   ██║   ██║   ██║   ██║   ██║   ██║██║   ██║\n" +
-                "   ██║   ╚██████╔╝   ██║   ╚██████╔╝╚██████╔╝\n" +
-                "   ╚═╝    ╚═════╝    ╚═╝    ╚═════╝  ╚═════╝ " + RESET);
+                "██╗   ██╗ ██████╗    █████╗ \n" +
+                "██║   ██║ ██    ██╗ ██╔══██╗\n" +
+                "██║   ██║ ██    ██║ ███████║\n" +
+                "██║   ██║ ██    ██║ ██╔══██║\n" +
+                "╚██████╔╝ ████████║ ██║  ██║\n" +
+                " ╚═════╝  ╚══════╝  ╚═╝  ╚═╝" + RESET);
         System.out.println("--------------------------------------------");
         System.out.println(GREEN + "     PALĪDZ DĀRZKOPĪBĀ, VIENMĒR PA ROKAI!" + RESET);
         System.out.println("--------------------------------------------\n");
     }
+    
 
     private static void printMenu() {
         System.out.println(GREEN + "--------------------------------------------" + RESET);
