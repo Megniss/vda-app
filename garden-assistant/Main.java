@@ -21,6 +21,9 @@ public class Main {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
+            clearConsole(); // Attīram ekrānu pirms jaunas darbības
+            printHeader();
+
             switch (choice) {
                 case 1:
                     System.out.print("Ievadi auga nosaukumu: ");
@@ -46,6 +49,11 @@ public class Main {
         }
     }
 
+    private static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     private static void printHeader() {
         System.out.println(GREEN +
                 "██╗   ██╗ ██████╗    █████╗ \n" +
@@ -58,7 +66,6 @@ public class Main {
         System.out.println(GREEN + "     PALĪDZ DĀRZKOPĪBĀ, VIENMĒR PA ROKAI!" + RESET);
         System.out.println("--------------------------------------------\n");
     }
-    
 
     private static void printMenu() {
         System.out.println(GREEN + "--------------------------------------------" + RESET);
