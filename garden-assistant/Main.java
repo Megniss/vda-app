@@ -21,7 +21,7 @@ public class Main {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            clearConsole(); // Attīram ekrānu pirms jaunas darbības
+            clearConsole();
             printHeader();
 
             switch (choice) {
@@ -57,9 +57,9 @@ public class Main {
     private static void printHeader() {
         System.out.println(GREEN +
                 "██╗   ██╗ ██████╗    █████╗ \n" +
-                "██║   ██║ ██    ██╗ ██╔══██╗\n" +
-                "██║   ██║ ██    ██║ ███████║\n" +
-                "██║   ██║ ██    ██║ ██╔══██║\n" +
+                "██║   ██║ ██║   ██╗ ██╔══██╗\n" +
+                "██║   ██║ ██║   ██║ ███████║\n" +
+                "██║   ██║ ██║   ██║ ██╔══██║\n" +
                 "╚██████╔╝ ████████║ ██║  ██║\n" +
                 " ╚═════╝  ╚══════╝  ╚═╝  ╚═╝" + RESET);
         System.out.println("--------------------------------------------");
