@@ -40,6 +40,7 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("Saglabāju datus un izeju no programmas...");
+                    manager.checkWateringReminders();
                     manager.savePlants();
                     scanner.close();
                     System.exit(0);

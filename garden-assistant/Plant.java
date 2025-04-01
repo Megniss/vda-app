@@ -33,4 +33,9 @@ public class Plant {
     public void setNextWateringDate(Date date) {
         this.nextWateringDate = date;
     }
+
+    public int getDaysUntilWatering() {
+        long diff = nextWateringDate.getTime() - new Date().getTime();
+        return (int) (diff / (1000 * 60 * 60 * 24));
+    }
 }
