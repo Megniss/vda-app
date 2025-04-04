@@ -9,7 +9,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         printHeader();
-        System.out.print(GREEN + "Ievadi savu Lietotāja ID (max 10 burti): " + RESET);
+        System.out.print(GREEN + "Ievadi savu Lietotāja ID (max 10 simboli): " + RESET);
         String userId = scanner.nextLine().trim();
 
         PlantManager manager = new PlantManager(userId);
