@@ -9,27 +9,29 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         printHeader();
-        System.out.print(GREEN + "Ievadi savu Lietotāja ID (max 10 simboli): " + RESET);
-        String userId = scanner.nextLine().trim();
+        String userId = "";
+
+        while (true) {
+            System.out.print(GREEN + "Ievadi savu Lietotāja ID (max 10 simboli): " + RESET);
+            userId = scanner.nextLine().trim();
+            if (!userId.isEmpty() && userId.length() <= 10) break;
+            System.out.println(BROWN + "Lietotāja ID nedrīkst būt tukšs un jābūt līdz 10 simboliem!" + RESET);
+        }
 
         PlantManager manager = new PlantManager(userId);
         manager.loadPlants();
 
         while (true) {
             printMenu();
-            System.out.print("Izvēlies darbību: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = getValidatedInt(scanner, "Izvēlies darbību (1-4): ", 1, 4);
 
             clearConsole();
             printHeader();
 
             switch (choice) {
                 case 1:
-                    System.out.print("Ievadi auga nosaukumu: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Ievadi laistīšanas intervālu (dienās): ");
-                    int interval = scanner.nextInt();
+                    String name = getValidatedName(scanner, "Ievadi auga nosaukumu (tikai burti): ");
+                    int interval = getValidatedInt(scanner, "Ievadi laistīšanas intervālu (dienās): ", 1, Integer.MAX_VALUE);
                     manager.addPlant(name, interval);
                     break;
                 case 2:
@@ -44,8 +46,6 @@ public class Main {
                     manager.savePlants();
                     scanner.close();
                     System.exit(0);
-                default:
-                    System.out.println(BROWN + "Nepareiza izvēle, mēģini vēlreiz." + RESET);
             }
         }
     }
@@ -75,5 +75,38 @@ public class Main {
         System.out.println("3. Ģenerēt kopšanas padomu");
         System.out.println("4. Iziet");
         System.out.println(GREEN + "--------------------------------------------" + RESET);
+    }
+
+    private static int getValidatedInt(Scanner scanner, String prompt, int min, int max) {
+        int number;
+        while (true) {
+            System.out.print(prompt);
+            if (scanner.hasNextInt()) {
+                number = scanner.nextInt();
+                scanner.nextLine();
+                if (number >= min && number <= max) {
+                    break;
+                } else {
+                    System.out.println(BROWN + "Lūdzu, ievadi skaitli no " + min + " līdz " + max + "." + RESET);
+                }
+            } else {
+                System.out.println(BROWN + "Tā nav derīga skaitliska ievade. Mēģini vēlreiz." + RESET);
+                scanner.nextLine();
+            }
+        }
+        return number;
+    }
+
+    private static String getValidatedName(Scanner scanner, String prompt) {
+        String input;
+        while (true) {
+            System.out.print(prompt);
+            input = scanner.nextLine().trim();
+            if (input.matches("^[a-zA-ZāčēģīķļņōŗšūžĀČĒĢĪĶĻŅŌŖŠŪŽ\\s]+$")) {
+                return input;
+            } else {
+                System.out.println(BROWN + "Auga nosaukumā drīkst būt tikai burti un atstarpes!" + RESET);
+            }
+        }
     }
 }
