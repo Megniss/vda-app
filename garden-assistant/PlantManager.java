@@ -11,11 +11,12 @@ public class PlantManager {
     public PlantManager(String userId) {
         this.userId = userId;
     }
+
     public void generateCareTip() {
         System.out.println(GREEN + "--- Kopšanas padoms ---" + RESET);
         System.out.println(BROWN + CareTip.getRandomTip() + RESET);
     }
-        
+
     public void addPlant(String name, int interval) {
         Plant plant = new Plant(name, interval);
         plants.add(plant);
@@ -37,20 +38,26 @@ public class PlantManager {
     }
 
     public void savePlants() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(userId + ".txt"))) {
-            for (Plant plant : plants) {
-                int daysUntilWatering = plant.getDaysUntilWatering();
-                writer.write(plant.getName() + ", Augs ir jāaplaista pēc " + daysUntilWatering + " dienām.");
-                writer.newLine();
+        try {
+            File dir = new File("userdata");
+            if (!dir.exists()) dir.mkdirs(); // <-- Izveido mapi, ja tās nav
+
+            File file = new File("userdata/" + userId + ".txt");
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                for (Plant plant : plants) {
+                    writer.write(plant.getName() + "," + plant.getWateringInterval());
+                    writer.newLine();
+                }
+                System.out.println(GREEN + "Dati saglabāti!" + RESET);
             }
-            System.out.println(GREEN + "Dati saglabāti!" + RESET);
         } catch (IOException e) {
             System.out.println(BROWN + "Kļūda saglabājot datus." + RESET);
+            e.printStackTrace(); // opcija: pagaidu debug
         }
     }
 
     public void loadPlants() {
-        File file = new File(userId + ".txt");
+        File file = new File("userdata/" + userId + ".txt");
         if (file.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;

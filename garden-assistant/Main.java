@@ -9,14 +9,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         printHeader();
-        String userId = "";
-
-        while (true) {
-            System.out.print(GREEN + "Ievadi savu Lietotāja ID (max 10 simboli): " + RESET);
-            userId = scanner.nextLine().trim();
-            if (!userId.isEmpty() && userId.length() <= 10) break;
-            System.out.println(BROWN + "Lietotāja ID nedrīkst būt tukšs un jābūt līdz 10 simboliem!" + RESET);
-        }
+        String userId = loginOrRegister(scanner);
 
         PlantManager manager = new PlantManager(userId);
         manager.loadPlants();
@@ -95,6 +88,48 @@ public class Main {
             }
         }
         return number;
+    }
+
+    private static String loginOrRegister(Scanner scanner) {
+        String userId;
+        String password;
+    
+        while (true) {
+            System.out.print(GREEN + "Vai tev jau ir konts? (j/n): " + RESET);
+            String choice = scanner.nextLine().trim().toLowerCase();
+    
+            if (choice.equals("j")) {
+                while (true) {
+                    System.out.print(GREEN + "Lietotājvārds: " + RESET);
+                    userId = scanner.nextLine().trim();
+                    System.out.print(GREEN + "Parole: " + RESET);
+                    password = scanner.nextLine().trim();
+    
+                    if (UserManager.validateUser(userId, password)) {
+                        System.out.println(GREEN + "Veiksmīga pieteikšanās!" + RESET);
+                        return userId;
+                    } else {
+                        System.out.println(BROWN + "Nepareizs lietotājvārds vai parole." + RESET);
+                    }
+                }
+            } else if (choice.equals("n")) {
+                while (true) {
+                    System.out.print(GREEN + "Izvēlies Lietotājvārdu: " + RESET);
+                    userId = scanner.nextLine().trim();
+                    System.out.print(GREEN + "Izvēlies Paroli: " + RESET);
+                    password = scanner.nextLine().trim();
+    
+                    if (UserManager.createUser(userId, password)) {
+                        System.out.println(GREEN + "Konts izveidots veiksmīgi!" + RESET);
+                        return userId;
+                    } else {
+                        System.out.println(BROWN + "Šis lietotājvārds jau ir aizņemts." + RESET);
+                    }
+                }
+            } else {
+                System.out.println(BROWN + "Lūdzu, ievadi 'j' vai 'n'." + RESET);
+            }
+        }
     }
 
     private static String getValidatedName(Scanner scanner, String prompt) {
