@@ -16,7 +16,7 @@ public class Main {
 
         while (true) {
             printMenu();
-            int choice = getValidatedInt(scanner, "Izvēlies darbību (1-4): ", 1, 4);
+            int choice = getValidatedInt(scanner, "Izvēlies darbību (1-5): ", 1, 5);
 
             clearConsole();
             printHeader();
@@ -39,6 +39,10 @@ public class Main {
                     manager.savePlants();
                     scanner.close();
                     System.exit(0);
+                    break;
+                case 5:
+                    manager.viewDataTables(scanner);
+                    break;
             }
         }
     }
@@ -67,6 +71,7 @@ public class Main {
         System.out.println("2. Pārbaudīt laistīšanas atgādinājumus");
         System.out.println("3. Ģenerēt kopšanas padomu");
         System.out.println("4. Iziet");
+        System.out.println("5. Apskatīt datu tabulas");
         System.out.println(GREEN + "--------------------------------------------" + RESET);
     }
 
@@ -93,18 +98,18 @@ public class Main {
     private static String loginOrRegister(Scanner scanner) {
         String userId;
         String password;
-    
+
         while (true) {
             System.out.print(GREEN + "Vai tev jau ir konts? (j/n): " + RESET);
             String choice = scanner.nextLine().trim().toLowerCase();
-    
+
             if (choice.equals("j")) {
                 while (true) {
                     System.out.print(GREEN + "Lietotājvārds: " + RESET);
                     userId = scanner.nextLine().trim();
                     System.out.print(GREEN + "Parole: " + RESET);
                     password = scanner.nextLine().trim();
-    
+
                     if (UserManager.validateUser(userId, password)) {
                         System.out.println(GREEN + "Veiksmīga pieteikšanās!" + RESET);
                         return userId;
@@ -118,7 +123,7 @@ public class Main {
                     userId = scanner.nextLine().trim();
                     System.out.print(GREEN + "Izvēlies Paroli: " + RESET);
                     password = scanner.nextLine().trim();
-    
+
                     if (UserManager.createUser(userId, password)) {
                         System.out.println(GREEN + "Konts izveidots veiksmīgi!" + RESET);
                         return userId;

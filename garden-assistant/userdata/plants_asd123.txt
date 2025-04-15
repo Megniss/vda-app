@@ -1,0 +1,3 @@
+Roze,25
+Tomats,10
+Paparde,27
