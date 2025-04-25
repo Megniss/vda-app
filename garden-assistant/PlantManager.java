@@ -11,6 +11,7 @@ public class PlantManager {
 
     public PlantManager(String userId) {
         this.userId = userId;
+        loadPlantsFromFile();
     }
 
     public void generateCareTip() {
@@ -22,6 +23,7 @@ public class PlantManager {
         Plant plant = new Plant(name, interval);
         plants.add(plant);
         saveReminder(plant);
+        savePlants();
         System.out.println(GREEN + "Augs pievienots: " + name + ", laistīt ik pēc " + interval + " dienām." + RESET);
     }
 
@@ -35,8 +37,30 @@ public class PlantManager {
                 plant.updateWateringDate();
                 saveReminder(plant);
             } else {
-                System.out.println(BROWN + "Augs: " + plant.getName() + " - jālaista pēc " + daysUntilWatering + " dienām." + RESET);
+                System.out.println(BROWN + plant.getName() + " ir jāaplaista pēc " + daysUntilWatering + " dienām." + RESET);
             }
+        }
+    }
+
+    private void loadPlantsFromFile() {
+        String fileName = "userdata/plants_" + userId + ".txt";
+        File file = new File(fileName);
+        if (!file.exists()) return;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    String name = parts[0];
+                    int interval = Integer.parseInt(parts[1]);
+                    String date = parts[2];
+                    plants.add(new Plant(name, interval, date));
+                }
+            }
+            System.out.println(GREEN + "Augu dati ielādēti!" + RESET);
+        } catch (IOException e) {
+            System.out.println("Kļūda ielādējot augus: " + e.getMessage());
         }
     }
 
@@ -47,8 +71,9 @@ public class PlantManager {
 
             File plantFile = new File("userdata/plants_" + userId + ".txt");
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(plantFile))) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 for (Plant plant : plants) {
-                    writer.write(plant.getName() + "," + plant.getWateringInterval() + "," + plant.getNextWateringDate().getTime());
+                    writer.write(plant.getName() + "," + plant.getWateringInterval() + "," + sdf.format(plant.getNextWateringDate()));
                     writer.newLine();
                 }
                 System.out.println(GREEN + "Augu dati saglabāti!" + RESET);
@@ -68,30 +93,6 @@ public class PlantManager {
             }
         } catch (IOException e) {
             System.out.println(BROWN + "Neizdevās saglabāt atgādinājumu." + RESET);
-        }
-    }
-
-    public void loadPlants() {
-        File file = new File("userdata/plants_" + userId + ".txt");
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    if (parts.length == 3) {
-                        String name = parts[0];
-                        int interval = Integer.parseInt(parts[1]);
-                        long dateMillis = Long.parseLong(parts[2]);
-                        Date nextWatering = new Date(dateMillis);
-                        Plant plant = new Plant(name, interval);
-                        plant.setNextWateringDate(nextWatering);
-                        plants.add(plant);
-                    }
-                }
-                System.out.println(GREEN + "Augu dati ielādēti!" + RESET);
-            } catch (IOException e) {
-                System.out.println(BROWN + "Kļūda ielādējot augu datus." + RESET);
-            }
         }
     }
 

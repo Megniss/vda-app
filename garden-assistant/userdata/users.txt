@@ -2,3 +2,5 @@ asd123,asd123
 123abc,123abc
 megnis,tomsona30
 abc,abc
+akmens,smiltis
+Pēteris,Pēteris

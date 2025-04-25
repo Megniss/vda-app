@@ -12,7 +12,6 @@ public class Main {
         String userId = loginOrRegister(scanner);
 
         PlantManager manager = new PlantManager(userId);
-        manager.loadPlants();
 
         while (true) {
             printMenu();

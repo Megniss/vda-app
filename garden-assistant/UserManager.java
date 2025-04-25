@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Scanner;
 
 public class UserManager {
     private static final String FILE_PATH = "userdata/users.txt";

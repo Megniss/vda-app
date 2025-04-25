@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -12,6 +13,18 @@ public class Plant {
         updateWateringDate();
     }
 
+    // ✅ Papildu konstruktors priekš faila ielādes ar datumu kā tekstu
+    public Plant(String name, int interval, String dateStr) {
+        this.name = name;
+        this.wateringInterval = interval;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            this.nextWateringDate = sdf.parse(dateStr);
+        } catch (Exception e) {
+            updateWateringDate(); // fallback, ja parsēšana neizdodas
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -24,18 +37,18 @@ public class Plant {
         return nextWateringDate;
     }
 
-    public void updateWateringDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, wateringInterval);
-        this.nextWateringDate = calendar.getTime();
-    }
-
     public void setNextWateringDate(Date date) {
         this.nextWateringDate = date;
     }
 
     public int getDaysUntilWatering() {
-        long diff = nextWateringDate.getTime() - new Date().getTime();
-        return (int) (diff / (1000 * 60 * 60 * 24));
+        long millis = nextWateringDate.getTime() - new Date().getTime();
+        return (int) Math.ceil(millis / (1000.0 * 60 * 60 * 24));
+    }
+
+    public void updateWateringDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, wateringInterval);
+        nextWateringDate = cal.getTime();
     }
 }
