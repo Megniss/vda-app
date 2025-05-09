@@ -1,23 +1,3 @@
-🌿 Virtuālais Dārza Asistents
-Virtuālais Dārza Asistents ir Java konsoles lietojumprogramma, kas izstrādāta, lai palīdzētu lietotājiem pārvaldīt savu digitālo dārzu. Tā ir lietotājam draudzīga un vizuāli sakārtota sistēma, kas darbojas terminālī, izmantojot ASCII mākslu un krāsu izkārtojumu, lai radītu estētisku dārza noskaņu.
-
-📌 Sistēmas pārskats
-Sistēma ļauj katram lietotājam:
-
-Reģistrēties un pieslēgties ar unikālu lietotājvārdu (līdz 10 simboliem).
-
-Pārvaldīt savu augu sarakstu: pievienot, rediģēt vai dzēst augus.
-
-Saņemt atgādinājumus par nepieciešamību laistīt augus.
-
-Skatīt personalizētus padomus augu kopšanai.
-
-Apskatīt datus tabulu veidā.
-
-Pārvaldīt savus konta datus vai dzēst kontu.
-
-Visa lietotāja informācija un augu dati tiek glabāti vienkāršos teksta failos, kuri darbojas kā iekšējās datu “tabulas”.
-
 🔧 Funkcionalitāte
 1. 🔐 Lietotāju autentifikācija
 Lietotājs var reģistrēties ar unikālu lietotājvārdu un paroli.
