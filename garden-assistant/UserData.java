@@ -31,7 +31,7 @@ public class UserData {
     public void displayUserData() {
         System.out.println("------------------------------------------------");
         System.out.println("Lietotājvārds: " + userId);
-        System.out.println("Parole: " + password);  // Paroles parādīšana tabulā (var šifrēt, ja vajag)
+        System.out.println("Parole: " + password);
         System.out.println("------------------------------------------------");
 
         System.out.println("Augi un laistīšanas intervāli:");

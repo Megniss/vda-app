@@ -13,7 +13,6 @@ public class Plant {
         updateWateringDate();
     }
 
-    // ✅ Papildu konstruktors priekš faila ielādes ar datumu kā tekstu
     public Plant(String name, int interval, String dateStr) {
         this.name = name;
         this.wateringInterval = interval;
@@ -21,7 +20,7 @@ public class Plant {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             this.nextWateringDate = sdf.parse(dateStr);
         } catch (Exception e) {
-            updateWateringDate(); // fallback, ja parsēšana neizdodas
+            updateWateringDate();
         }
     }
 
